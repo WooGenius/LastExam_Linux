@@ -5,6 +5,8 @@ public class CopyFile {
 	private static Scanner scanner;
 	private static FileInputStream fis;
 	private static FileOutputStream fos;
+	private static BufferedInputStream bis;
+	private static BufferedOutputStream bos;
 
 	public static void main(String[] args) throws IOException {
 		scanner = new Scanner(System.in);
@@ -20,13 +22,17 @@ public class CopyFile {
 		}
 		File outputFile = new File(outputRoute);
 		fis = new FileInputStream(inputFile);
+		bis = new BufferedInputStream(fis);
 		fos = new FileOutputStream(outputFile);
+		bos = new BufferedOutputStream(fos);
 		
-		int data = fis.read();
+		int data = bis.read();
 		while (data != -1) {
-			fos.write(data);
-			data = fis.read();
+			bos.write(data);
+			data = bis.read();
 		}
+		bos.close();
+		bis.close();
 		fis.close();
 		fos.close();
 		}
